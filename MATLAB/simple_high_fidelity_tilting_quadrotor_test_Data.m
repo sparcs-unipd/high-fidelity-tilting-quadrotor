@@ -47,7 +47,7 @@ prop.w_max = prop.w_max_rpm * 2*pi/60;  % propeller maximum rate [rad/s]
 prop.max_thrust = 3*m_b*9.81/4;         % propeller maximum thrust [N]           
 
 k_t = prop.max_thrust / prop.w_max.^2;  % thrust coefficient [N/s^2]
-k_m = k_t * 0.01;                       % propeller drag coefficient [Nm/s^2]
+k_m = k_t * 0.05;                       % propeller drag coefficient [Nm/s^2]
 
 % motor torque needed to reach the maximum speed.
 % it has to counter the drag torque at maximum speed
