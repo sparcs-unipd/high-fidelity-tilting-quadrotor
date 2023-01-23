@@ -142,17 +142,6 @@ w_bar_0 = [
     ];
 w_bar_0 = w_bar_0(1:N);
 
-% initial state vector
-x_0 = [
-    p_0
-    q_0
-    v_0
-    omega_0
-    alpha_0
-    alpha_dot_0
-    w_bar_0
-    ];
-
 %% Initial inputs
 
 % % initial acceleration of the tilting angles [rad/s^2]
@@ -201,4 +190,4 @@ u_0 = [
     tau_i_z_0
     ];
 
-T_s = 1e-4;
+T_s = 1e-3;
