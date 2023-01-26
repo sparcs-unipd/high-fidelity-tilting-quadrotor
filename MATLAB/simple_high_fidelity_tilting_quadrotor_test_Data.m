@@ -43,6 +43,7 @@ m_b = body.m + N*(stator.m+rotor.m+prop.m);       % body mass [Kg]
 
 prop.w_max_rpm = 10000;                 % propeller maximum rate [rpm]
 prop.w_max = prop.w_max_rpm * 2*pi/60;  % propeller maximum rate [rad/s]
+prop.w_min = sqrt(0.01*prop.w_max);     % propeller minimum rate [rad/s]
 
 prop.max_thrust = 3*m_b*9.81/4;         % propeller maximum thrust [N]           
 
@@ -89,6 +90,11 @@ T = kron([0;0;1],c_direction)*k_t;
 
 A = [T(3,:); M];
 Alloc = inv(A);
+
+max_alpha         = pi/3 .* [1 1 1 1];        % maximum tilting angles [rad]
+min_alpha         = -pi/3 .* [1 1 1 1];       % minimum tilting angles [rad]
+max_alpha_dot     = 6 .* [1 1 1 1];           % maximum tilting rates [rad/s]
+min_alpha_dot     = -6 .* [1 1 1 1];          % minimum tilting rates [rad/s]
 
 %% Initial conditions
 
