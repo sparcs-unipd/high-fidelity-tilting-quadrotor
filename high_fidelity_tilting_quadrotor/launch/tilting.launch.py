@@ -65,13 +65,18 @@ def generate_launch_description():
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
+        #parameters=[{'use_sim_time': use_sim_time}],
         arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                   '/model/x500_tilting_0/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+                   '/world/default/model/x500_tilting_0/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
                    '/x500_tilting_0/command/motor_speed@actuator_msgs/msg/Actuators]gz.msgs.Actuators',
                    '/model/x500_tilting_0/command/servo_pos@actuator_msgs/msg/Actuators]gz.msgs.Actuators',
-                   '/world/default/model/x500_tilting_0/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
                    ],
         remappings=[
-            ('/world/default/model/x500_tilting_0/joint_state', 'joint_states'),
+            ('/world/default/model/x500_tilting_0/joint_state', '/x500_tilting_0/joint_states'),
+            ('/x500_tilting_0/command/motor_speed', '/x500_tilting_0/motor_speed'),
+            ('/model/x500_tilting_0/command/servo_pos', '/x500_tilting_0/servo_pos'),
+            ('/model/x500_tilting_0/odometry', '/x500_tilting_0/odometry'),
         ],
         output='screen'
     )
@@ -88,7 +93,7 @@ def generate_launch_description():
             PythonLaunchDescriptionSource(
                 [os.path.join(get_package_share_directory('ros_gz_sim'),
                               'launch', 'gz_sim.launch.py')]),
-            launch_arguments=[('gz_args', [' -r -v 4 ', LaunchConfiguration('world_name'), '.sdf'])]
+            launch_arguments=[('gz_args', [' -r -v 1 ', LaunchConfiguration('world_name'), '.sdf'])]
         ),
         RegisterEventHandler(
             event_handler=OnProcessExit(

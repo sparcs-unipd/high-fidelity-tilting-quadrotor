@@ -27,33 +27,6 @@
           </mesh>
         </geometry>
       </visual>
-      <visual name="5010_motor_base_1">
-        <pose>-0.174 0.174 .032 0 0 -.45</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://x500_tilting/meshes/5010Base.dae</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name="5010_motor_base_2">
-        <pose>0.174 -0.174 .032 0 0 -.45</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://x500_tilting/meshes/5010Base.dae</uri>
-          </mesh>
-        </geometry>
-      </visual>
-      <visual name="5010_motor_base_3">
-        <pose>-0.174 -0.174 .032 0 0 -.45</pose>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>model://x500_tilting/meshes/5010Base.dae</uri>
-          </mesh>
-        </geometry>
-      </visual>
       <visual name="NXP_FMUK66_FRONT">
         <pose>0.047 .001 .043 1 0 1.57</pose>
         <cast_shadows>false</cast_shadows>
@@ -231,9 +204,9 @@
       <inertial>
         <mass>0.05</mass>
         <inertia>
-          <ixx>0.02</ixx>
-          <iyy>0.02</iyy>
-          <izz>0.02</izz>
+          <ixx>0.0002</ixx>
+          <iyy>0.0002</iyy>
+          <izz>0.0002</izz>
         </inertia>
       </inertial>
       <visual name="5010_motor_base_0">
@@ -254,9 +227,10 @@
         <limit>
           <lower>-1</lower>
           <upper>1</upper>
+          <effort>1e6</effort>
         </limit>
         <dynamics>
-          <damping>1</damping>
+          <damping>0.01</damping>
           <spring_reference>0</spring_reference>
           <spring_stiffness>0</spring_stiffness>
         </dynamics>
@@ -334,11 +308,51 @@
         </dynamics>
       </axis>
     </joint>
+    <link name="motor_1">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay/>
+      <pose relative_to="base_link">-0.174 0.174 0 0 0 2.3562</pose>
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.0002</ixx>
+          <iyy>0.0002</iyy>
+          <izz>0.0002</izz>
+        </inertia>
+      </inertial>
+      <visual name="5010_motor_base_1">
+        <pose>0 0 .032 0 0 -.45</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://x500_tilting/meshes/5010Base.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="motor_1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>motor_1</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1</lower>
+          <upper>1</upper>
+          <effort>1e6</effort>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
     <link name="rotor_1">
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay/>
-      <pose>-0.174 0.174 0.06 0 0 0</pose>
+      <pose relative_to="motor_1">0 0 0.06 0 0 0</pose>
       <inertial>
           <mass>0.016076923076923075</mass>
           <inertia>
@@ -392,7 +406,7 @@
       </collision>
     </link>
     <joint name="rotor_1_joint" type="revolute">
-      <parent>base_link</parent>
+      <parent>motor_1</parent>
       <child>rotor_1</child>
       <axis>
         <xyz>0 0 1</xyz>
@@ -406,11 +420,51 @@
         </dynamics>
       </axis>
     </joint>
+    <link name="motor_2">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay/>
+      <pose relative_to="base_link">0.174 0.174 0 0 0 0.7854</pose>
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.0002</ixx>
+          <iyy>0.0002</iyy>
+          <izz>0.0002</izz>
+        </inertia>
+      </inertial>
+      <visual name="5010_motor_base_2">
+        <pose>0 0 .032 0 0 -.45</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://x500_tilting/meshes/5010Base.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="motor_2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>motor_2</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1</lower>
+          <upper>1</upper>
+          <effort>1e6</effort>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
     <link name="rotor_2">
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay/>
-      <pose>0.174 0.174 0.06 0 0 0</pose>
+      <pose relative_to="motor_2">0 0 0.06 0 0 0</pose>
       <inertial>
           <mass>0.016076923076923075</mass>
           <inertia>
@@ -464,7 +518,7 @@
       </collision>
     </link>
     <joint name="rotor_2_joint" type="revolute">
-      <parent>base_link</parent>
+      <parent>motor_2</parent>
       <child>rotor_2</child>
       <axis>
         <xyz>0 0 1</xyz>
@@ -478,11 +532,51 @@
         </dynamics>
       </axis>
     </joint>
+    <link name="motor_3">
+      <gravity>true</gravity>
+      <self_collide>false</self_collide>
+      <velocity_decay/>
+      <pose relative_to="base_link">-0.174 -0.174 0 0 0 -2.3562</pose>
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.0002</ixx>
+          <iyy>0.0002</iyy>
+          <izz>0.0002</izz>
+        </inertia>
+      </inertial>
+      <visual name="5010_motor_base_3">
+        <pose>0 0 .032 0 0 -.45</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://x500_tilting/meshes/5010Base.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name="motor_3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>motor_3</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1</lower>
+          <upper>1</upper>
+          <effort>1e6</effort>
+        </limit>
+        <dynamics>
+          <damping>0.01</damping>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
     <link name="rotor_3">
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay/>
-      <pose>-0.174 -0.174 0.06 0 0 0</pose>
+      <pose relative_to="motor_3">0 0 0.06 0 0 0</pose>
       <inertial>
           <mass>0.016076923076923075</mass>
           <inertia>
@@ -536,7 +630,7 @@
       </collision>
     </link>
     <joint name="rotor_3_joint" type="revolute">
-      <parent>base_link</parent>
+      <parent>motor_3</parent>
       <child>rotor_3</child>
       <axis>
         <xyz>0 0 1</xyz>
@@ -618,11 +712,47 @@
       filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
       <joint_name>motor_0_joint</joint_name>
       <use_actuator_msg>true</use_actuator_msg>
+      <use_velocity_commands>false</use_velocity_commands>
       <sub_topic>command/servo_pos</sub_topic>
       <actuator_number>0</actuator_number>
-      <p_gain>30.0</p_gain>
-      <d_gain>0.5</d_gain>
+      <p_gain>1</p_gain>
+      <d_gain>0.05</d_gain>
+    </plugin>
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>motor_1_joint</joint_name>
+      <use_actuator_msg>true</use_actuator_msg>
+      <use_velocity_commands>false</use_velocity_commands>
+      <sub_topic>command/servo_pos</sub_topic>
+      <actuator_number>1</actuator_number>
+      <p_gain>1</p_gain>
+      <d_gain>0.05</d_gain>
+    </plugin>
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>motor_2_joint</joint_name>
+      <use_actuator_msg>true</use_actuator_msg>
+      <use_velocity_commands>false</use_velocity_commands>
+      <sub_topic>command/servo_pos</sub_topic>
+      <actuator_number>2</actuator_number>
+      <p_gain>1</p_gain>
+      <d_gain>0.05</d_gain>
+    </plugin>
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>motor_3_joint</joint_name>
+      <use_actuator_msg>true</use_actuator_msg>
+      <use_velocity_commands>false</use_velocity_commands>
+      <sub_topic>command/servo_pos</sub_topic>
+      <actuator_number>3</actuator_number>
+      <p_gain>1</p_gain>
+      <d_gain>0.05</d_gain>
     </plugin>
     <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher"/>
+    <plugin
+      filename="gz-sim-odometry-publisher-system"
+      name="gz::sim::systems::OdometryPublisher">
+      <dimensions>3</dimensions>
+    </plugin>
   </model>
 </sdf>
